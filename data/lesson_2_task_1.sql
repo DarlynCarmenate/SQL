@@ -1,8 +1,8 @@
-drop table if exists [Студенты];
-create table [Студенты] (
-[Идентификатор] int PRIMARY KEY,
-[Имя] varchar(100),
-[Фамилия] varchar(100),
-CONSTRAINT [ПроверкаИмени] CHECK([Имя] NOT LIKE '%[^А-Я]%'),
-CONSTRAINT [ПроверкаФамилии] CHECK([Фамилия] NOT LIKE '%[^А-Я]%')
+DROP TABLE IF EXISTS [Г‘ГІГіГ¤ГҐГ­ГІГ»];
+CREATE TABLE [Г‘ГІГіГ¤ГҐГ­ГІГ»] (
+[Г€Г¤ГҐГ­ГІГЁГґГЁГЄГ ГІГ®Г°] int PRIMARY KEY,
+[Г€Г¬Гї] varchar(100),
+[Г”Г Г¬ГЁГ«ГЁГї] varchar(100),
+CONSTRAINT [ГЏГ°Г®ГўГҐГ°ГЄГ Г€Г¬ГҐГ­ГЁ] CHECK([Г€Г¬Гї] NOT LIKE '%[^ГЂ-Гџ]%'),
+CONSTRAINT [ГЏГ°Г®ГўГҐГ°ГЄГ Г”Г Г¬ГЁГ«ГЁГЁ] CHECK([Г”Г Г¬ГЁГ«ГЁГї] NOT LIKE '%[^ГЂ-Гџ]%')
 );
