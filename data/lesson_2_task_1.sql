@@ -1,5 +1,5 @@
-drop table if exists [Студенты];
-create table [Студенты] (
+DROP TABLE IF EXISTS [Студенты];
+CREATE TABLE [Студенты] (
 [Идентификатор] int PRIMARY KEY,
 [Имя] varchar(100),
 [Фамилия] varchar(100),
