@@ -1,42 +1,42 @@
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Íàïðàâëåíèÿ' AND COLUMN_NAME = 'Âñåãî ìåñò')
-	ALTER TABLE [Íàïðàâëåíèÿ]
-	ADD [Âñåãî ìåñò] INT;
+WHERE TABLE_NAME = 'Направления' AND COLUMN_NAME = 'Всего мест')
+	ALTER TABLE [Направления]
+	ADD [Всего мест] INT;
 
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'Íàïðàâëåíèÿ' AND COLUMN_NAME = 'Íàáîð îêîí÷åí')
-	ALTER TABLE [Íàïðàâëåíèÿ]
-	ADD [Íàáîð îêîí÷åí] bit;
+WHERE TABLE_NAME = 'Направления' AND COLUMN_NAME = 'Набор окончен')
+	ALTER TABLE [Направления]
+	ADD [Набор окончен] bit;
 
-UPDATE [Íàïðàâëåíèÿ] 
-SET [Âñåãî ìåñò] = 2, [Íàáîð îêîí÷åí] = 0
-WHERE [Êîä íàïðàâëåíèÿ] = 1 AND [Âñåãî ìåñò] IS NULL;
+UPDATE [Направления] 
+SET [Всего мест] = 2, [Набор окончен] = 0
+WHERE [Код направления] = 1 AND [Всего мест] IS NULL;
 
-UPDATE [Íàïðàâëåíèÿ] 
-SET [Âñåãî ìåñò] = 2, [Íàáîð îêîí÷åí] = 0
-WHERE [Êîä íàïðàâëåíèÿ] = 2 AND [Âñåãî ìåñò] IS NULL;
+UPDATE [Направления] 
+SET [Всего мест] = 2, [Набор окончен] = 0
+WHERE [Код направления] = 2 AND [Всего мест] IS NULL;
 
-UPDATE [Íàïðàâëåíèÿ] 
-SET [Âñåãî ìåñò] = 1, [Íàáîð îêîí÷åí] = 0
-WHERE [Êîä íàïðàâëåíèÿ] = 3 AND [Âñåãî ìåñò] IS NULL;
+UPDATE [Направления] 
+SET [Всего мест] = 1, [Набор окончен] = 0
+WHERE [Код направления] = 3 AND [Всего мест] IS NULL;
 GO
 
 CREATE TRIGGER AddStudent
-ON [Ñòóäåíòû]
+ON [Студенты]
 AFTER INSERT
 AS
 BEGIN
-	IF (SELECT COUNT(*) FROM [Ñòóäåíòû] s JOIN [Íàïðàâëåíèÿ] n
-	ON s.[Êîä íàïðàâëåíèÿ]=n.[Êîä íàïðàâëåíèÿ]
-	WHERE s.[Êîä íàïðàâëåíèÿ] = (SELECT [Êîä íàïðàâëåíèÿ] FROM INSERTED) 
-	AND [Áàëë] >= n.[Ìèíèìàëüíûé áàëë]) > (SELECT [Âñåãî ìåñò] FROM [Íàïðàâëåíèÿ]
-	WHERE [Êîä íàïðàâëåíèÿ] = (SELECT [Êîä íàïðàâëåíèÿ] FROM INSERTED))
+	IF (SELECT COUNT(*) FROM [Студенты] s JOIN [Направления] n
+	ON s.[Код направления]=n.[Код направления]
+	WHERE s.[Код направления] = (SELECT [Код направления] FROM INSERTED) 
+	AND [Балл] >= n.[Минимальный балл]) > (SELECT [Всего мест] FROM [Направления]
+	WHERE [Код направления] = (SELECT [Код направления] FROM INSERTED))
 		BEGIN
-			UPDATE [Íàïðàâëåíèÿ]
-			SET [Íàáîð îêîí÷åí] = 1
-			WHERE [Êîä íàïðàâëåíèÿ]=(SELECT [Êîä íàïðàâëåíèÿ] FROM INSERTED);
-			PRINT 'Íàáîð îêîí÷åí';
+			UPDATE [Направления]
+			SET [Набор окончен] = 1
+			WHERE [Код направления]=(SELECT [Код направления] FROM INSERTED);
+			PRINT 'Набор окончен';
 		END
 	ELSE
-		PRINT 'Ñòóäåíò çà÷èñëåí'
+		PRINT 'Студент зачислен'
 END;
