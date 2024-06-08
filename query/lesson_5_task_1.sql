@@ -14,7 +14,7 @@ $body$;
 
 
 --tsql
-create function fn_method
+create function dbo.fn_method
 (
   @account_id int,
   @session_id int
