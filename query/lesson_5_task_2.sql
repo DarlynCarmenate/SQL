@@ -25,7 +25,7 @@ begin
 		from
 		(
 		values (1,'prod_type', 'user-type'),
-			     (2,'prod_type_2', 'user-type_2')
+		       (2,'prod_type_2', 'user-type_2')
 		) as t (user_id, product_type, user_type)
 	) as t
 	into l_first_query;
@@ -36,8 +36,7 @@ begin
 			     t.status
 		from
 		(
-			values (1,'approved'),
-			       (2,'finished')
+			values (@session_id,'successful')
 		) as t (session_id, status)
 	) as t
 	into l_secound_query;
@@ -57,15 +56,14 @@ begin
 		from
 		(
 		values (1,'prod_type', 'user-type'),
-			     (2,'prod_type_2', 'user-type_2')
+		       (2,'prod_type_2', 'user-type_2')
 		) as t (user_id, product_type, user_type)
 
 	select t.session_id,
 		     t.status
 		from
 		(
-			values (1,'approved'),
-			       (2,'finished')
+			values (@session_id,'successful')
 		) as t (session_id, status)
 end;
 
